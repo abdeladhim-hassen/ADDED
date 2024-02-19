@@ -1,0 +1,103 @@
+<div class="text-center mt-3">
+    <h2>Résultats: {{pagination.totalItems}} Compteurs saisies</h2>
+  </div>
+  
+  <form class="form-inline my-2 my-lg-0" #form="ngForm" 
+  (ngSubmit)="loadCompteur()" novalidate style="margin:auto;">
+  
+  <mat-form-field>
+    <mat-label>Compteur</mat-label>
+    <input  matInput placeholder="Ex. 001" id="Compteur" name="Compteur" 
+    [(ngModel)]="CompteurParam.Compteur">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Tournee</mat-label>
+    <input  matInput placeholder="Ex. 001" id="Tournee" name="Tournee" 
+    [(ngModel)]="CompteurParam.Tournee">
+  </mat-form-field>
+
+    <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+    <button type="button" class="btn btn-info" style="margin-left:10px" 
+    (click)="Reset()">Reset Filter</button>
+  </form>
+  <br>
+  
+  
+
+  
+  
+  
+  <div class="mat-elavation-z8">
+    <mat-table [dataSource]='ListCompteur' >
+     
+       <ng-container matColumnDef="Tournee">
+        <mat-header-cell *matHeaderCellDef > Tournee. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creaTour}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Anomalie">
+        <mat-header-cell *matHeaderCellDef> Anomalie libellé </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.libAno}} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="ID">
+        <mat-header-cell *matHeaderCellDef> ID Anomalie </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idAno}} </mat-cell>
+      </ng-container>
+     
+    
+      <ng-container matColumnDef="Ordre">
+        <mat-header-cell *matHeaderCellDef > Ordre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creaOrdr}} </mat-cell>
+      </ng-container>
+      
+
+      <ng-container matColumnDef="Index">
+        <mat-header-cell *matHeaderCellDef > Index </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creaIndex}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="Numero">
+        <mat-header-cell *matHeaderCellDef> Numéro Compteur </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creaNumCtr}} </mat-cell>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="Adresse">
+        <mat-header-cell *matHeaderCellDef> Adresse </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.creaAdressse}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+        </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':ListCompteur!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(ListCompteur!=null && ListCompteur.data.length==0)}"></mat-footer-row>
+    </mat-table>
+  </div>
+  
+  
+  
+  
+  <div class="d-flex justify-content-center">
+    <pagination
+        [boundaryLinks]="true"
+        [totalItems]="pagination.totalItems"
+        [(ngModel)]="pagination.currentPage"
+        [(itemsPerPage)]="pagination.itemsPerPage"
+        (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  
+    </pagination>
+  </div>

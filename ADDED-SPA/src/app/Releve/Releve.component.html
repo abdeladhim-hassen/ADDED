@@ -1,0 +1,35 @@
+<mat-toolbar>
+  <span style="flex: 1 1 auto;">{{info.chef}}</span>
+  <span>{{info.dist}}</span>
+</mat-toolbar>
+
+<div class="row justify-content-center">
+  <div class="col-10">
+<form #Initform = "ngForm" (ngSubmit) = "import()">
+
+  <mat-form-field class="inputs">
+    <mat-label>Année</mat-label>
+    <input  matInput required name="annee" placeholder="annee" [(ngModel)]="Model.annee">
+  </mat-form-field>
+
+  <mat-form-field class="inputs">
+    <mat-label>Trimestre</mat-label>
+    <input  matInput required name="Trim" placeholder="Trim" [(ngModel)]="Model.Trim">
+  </mat-form-field>
+
+  <mat-form-field class="inputs">
+    <mat-label>Tier</mat-label>
+    <input  matInput required name="Tier" placeholder="Tier" [(ngModel)]="Model.Tier">
+  </mat-form-field>
+
+  <mat-form-field class="inputs">
+    <mat-label>Sixème</mat-label>
+    <input  matInput required name="Six" placeholder="Six" [(ngModel)]="Model.Six">
+  </mat-form-field>
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit" >Importer</button>
+    <button class="btn btn-default" type="button" (click) = "verifier()" >Vérifier</button>
+  </div>
+</form>
+</div>
+</div>

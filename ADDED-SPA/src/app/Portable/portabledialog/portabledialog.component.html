@@ -1,0 +1,23 @@
+<form #registerform = "ngForm">
+  <h2 class="text-center text-primary">{{data.idPort? data.idPort : 'Nouveau Portable'}}</h2>
+  <hr>
+
+  <mat-form-field class="inputs">
+    <mat-label>Marque</mat-label>
+    <input  matInput required name="Marque" placeholder="Marque" [(ngModel)]="data.marquePort">
+  </mat-form-field>
+
+
+  <mat-slide-toggle labelPosition="before"
+      [checked]="data.etatPort === 1 ? true : false"
+      (change)="setValue( $event )">
+      Etat
+  </mat-slide-toggle>
+<hr>
+  <div class="form-group text-center">
+    
+    <button class="btn btn-success" type="submit" [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+    <button class="btn btn-default" type="button" (click) = "cancel()">Cancel</button>
+  </div>
+  
+</form>

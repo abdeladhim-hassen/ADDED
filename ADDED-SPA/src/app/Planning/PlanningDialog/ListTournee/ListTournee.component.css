@@ -1,0 +1,11 @@
+.Tournee {
+  height: 250px;
+  overflow: auto;
+}
+.mat-column-select {
+    overflow: initial;
+  }
+  table {
+    width: 100%;
+  }
+  

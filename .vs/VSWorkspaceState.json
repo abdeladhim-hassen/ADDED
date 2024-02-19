@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ADDED-SPA",
+    "\\ADDED-SPA\\src",
+    "\\ADDED-SPA\\src\\environments",
+    "\\ADDED.API",
+    "\\ADDED.API\\Data",
+    "\\ADDED.API\\Migrations",
+    "\\ADDED.API\\Models"
+  ],
+  "SelectedNode": "\\ADDED.API\\Data\\DataContext.cs",
+  "PreviewInSolutionExplorer": false
+}

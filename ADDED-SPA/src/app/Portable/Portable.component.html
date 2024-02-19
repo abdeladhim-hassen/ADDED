@@ -1,0 +1,99 @@
+<div class="text-center mt-3">
+  <h2>Résultats: {{pagination.totalItems}} Portables</h2>
+</div>
+
+<div class="container mt-3">
+
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadPortable()" novalidate>
+    <mat-form-field>
+      <mat-label>Portable :</mat-label>
+      <input  matInput placeholder="Ex. nokia" style="width: 70px" id="Marque"
+          [(ngModel)]="PortableParam.Portable" name="Portable">
+    </mat-form-field>
+  
+     <mat-slide-toggle  labelPosition="before"
+     [checked]="PortableParam.Etat === 1 ? true : false"
+     (change)="setValue( $event )">
+      Etat
+      </mat-slide-toggle>
+
+      <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+      <button type="button" class="btn btn-info" (click)="Reset()" style="margin-left:10px">
+          Reset Filter
+      </button>
+    </form>
+  <br>
+</div>
+
+
+
+
+
+<hr>
+<button mat-raised-button (click)="onCreate()">
+  <mat-icon>add</mat-icon>Create
+</button>
+<hr>
+
+
+<div class="mat-elavation-z8">
+  <mat-table [dataSource]='ListPortable' >
+     <!-- Position Column -->
+     <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef > No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.idPort}} </mat-cell>
+    </ng-container>
+  
+   
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Marque">
+      <mat-header-cell *matHeaderCellDef > Marque </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.marquePort}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Etat">
+      <mat-header-cell *matHeaderCellDef> Etat </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.etatPort == 1 ? "Disponible": "En Panne"}} </mat-cell>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="Action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="onCreate(row)" ><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="openDialog(row)"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':ListPortable!=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(ListPortable!=null && ListPortable.data.length==0)}"></mat-footer-row>
+  </mat-table>
+</div>
+
+
+<div class="d-flex justify-content-center">
+  <pagination
+      [boundaryLinks]="true"
+      [totalItems]="pagination.totalItems"
+      [(ngModel)]="pagination.currentPage"
+      [(itemsPerPage)]="pagination.itemsPerPage"
+      (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+
+  </pagination>
+</div>

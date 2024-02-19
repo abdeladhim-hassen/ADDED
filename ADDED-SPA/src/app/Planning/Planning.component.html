@@ -1,0 +1,126 @@
+<div class="planning">
+  <div class="text-center mt-3">
+    <h2>Résultats: {{pagination.totalItems}} Plannings</h2>
+  </div>
+  
+  <form class="form-inline my-2 my-lg-0" #form="ngForm" 
+  (ngSubmit)="loadPlanning()" novalidate style="margin:auto;">
+  <mat-form-field>
+    <mat-label>Releveur</mat-label>
+    <input  matInput placeholder="Ex. John ou 001"  
+    id="Releveur" name="Releveur" [(ngModel)]="PlanningParam.Releveur">
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Portable</mat-label>
+    <input  matInput placeholder="Ex. nokia ou 0001"id="Portable"
+    [(ngModel)]="PlanningParam.Portable" name="Portable">
+  </mat-form-field>
+   
+  <mat-form-field>
+    <mat-label>Tournee</mat-label>
+    <input  matInput placeholder="Ex. 001" id="Tour"
+    [(ngModel)]="PlanningParam.Tour" name="Tour">
+  </mat-form-field>
+    <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+    <button type="button" class="btn btn-info" style="margin-left:10px" 
+    (click)="Reset()">Reset Filter</button>
+  </form>
+  <br>
+  
+  
+  
+  <hr>
+  <button mat-raised-button (click)="onCreate()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+  <hr>
+  
+
+  <div class="mat-elavation-z8">
+    <mat-table [dataSource]='ListPlanning' >
+      
+       <ng-container matColumnDef="Id">
+        <mat-header-cell *matHeaderCellDef > No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idReleveur}} </mat-cell>
+      </ng-container>
+    
+     
+    
+      
+      <ng-container matColumnDef="Releveur">
+        <mat-header-cell *matHeaderCellDef > Username </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.tspUsername}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Localite">
+        <mat-header-cell *matHeaderCellDef > Localite </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.libLocalite}} </mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="IdP">
+        <mat-header-cell *matHeaderCellDef > Portable </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idPort}} </mat-cell>
+      </ng-container>
+     
+      <ng-container matColumnDef="Marque">
+        <mat-header-cell *matHeaderCellDef > Marque </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.marquePort}} </mat-cell>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="Tournee">
+        <mat-header-cell *matHeaderCellDef> Tournee </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <div *ngFor="let item of element.tournee">&brvbar; {{item.tour}} &brvbar;</div>
+        </mat-cell>
+      </ng-container>
+  
+  
+  
+      <ng-container matColumnDef="Date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.datAffect | date: 'd MMM, y, h:mm:ss a'}} </mat-cell>
+      </ng-container>
+    
+  
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="onCreate(row)" ><mat-icon>launch</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="openDialog(row)"><mat-icon>delete_outline</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+        </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':ListPlanning!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(ListPlanning!=null && ListPlanning.data.length==0)}"></mat-footer-row>
+    </mat-table>
+  </div>
+  
+  <div class="d-flex justify-content-center">
+    <pagination
+        [boundaryLinks]="true"
+        [totalItems]="pagination.totalItems"
+        [(ngModel)]="pagination.currentPage"
+        [(itemsPerPage)]="pagination.itemsPerPage"
+        (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  
+    </pagination>
+  </div>
+  </div>

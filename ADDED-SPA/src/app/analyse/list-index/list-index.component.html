@@ -1,0 +1,104 @@
+<div class="text-center mt-3">
+    <h2>Résultats: {{pagination.totalItems}} Indexs Saisies </h2>
+  </div>
+  
+  <form class="form-inline my-2 my-lg-0" #form="ngForm" 
+  (ngSubmit)="loadIndex()" novalidate style="margin:auto;">
+  
+  <mat-form-field>
+    <mat-label>Ordre</mat-label>
+    <input  matInput placeholder="Ex. 001" id="Ordre" name="Ordre" 
+    [(ngModel)]="IndexParam.Ordre">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tournée</mat-label>
+    <input  matInput placeholder="Ex. 001" id="Tournee" name="Tournee" 
+    [(ngModel)]="IndexParam.Tournee">
+  </mat-form-field>
+  
+    <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+    <button type="button" class="btn btn-info" style="margin-left:10px" 
+    (click)="Reset()">Reset Filter</button>
+  </form>
+  <br>
+  
+  
+
+  
+  
+  
+  <div class="mat-elavation-z8">
+    <mat-table [dataSource]='ListIndex' >
+     
+       <ng-container matColumnDef="Tournee">
+        <mat-header-cell *matHeaderCellDef > Tournee. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.tour}} </mat-cell>
+      </ng-container>
+
+    
+      <ng-container matColumnDef="Ordre">
+        <mat-header-cell *matHeaderCellDef > Ordre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ordre}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="Police">
+        <mat-header-cell *matHeaderCellDef> Police </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.police}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Nouv">
+        <mat-header-cell *matHeaderCellDef > Nouvelle Index </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nouvIndex}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Ancien">
+        <mat-header-cell *matHeaderCellDef > Ancien Index </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ancienIndex}} </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="Consomation">
+        <mat-header-cell *matHeaderCellDef> Consomation </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nouvIndex - element.ancienIndex}} </mat-cell>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="Date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.datIndex | date: 'd MMM, y, h:mm:ss a'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          Loading data...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':ListIndex!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(ListIndex!=null && ListIndex.data.length==0)}"></mat-footer-row>
+      </mat-table>
+    </div>
+  
+  
+  
+  
+  <div class="d-flex justify-content-center">
+    <pagination
+        [boundaryLinks]="true"
+        [totalItems]="pagination.totalItems"
+        [(ngModel)]="pagination.currentPage"
+        [(itemsPerPage)]="pagination.itemsPerPage"
+        (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  
+    </pagination>
+  </div>

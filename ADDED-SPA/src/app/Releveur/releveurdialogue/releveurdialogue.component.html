@@ -1,0 +1,28 @@
+<form #registerform = "ngForm">
+  <h2 class="text-center text-primary">{{data.idPort? data.idPort : 'Nouveau Releveur'}}</h2>
+  <hr>
+
+  <mat-form-field class="inputs">
+    <mat-label>Releveur</mat-label>
+    <input  matInput required name="Username" placeholder="Username" [(ngModel)]="data.tspUsername">
+  </mat-form-field>
+
+  <mat-form-field class="inputs">
+    <mat-label>Localite</mat-label>
+    <mat-select [(value)] = "data.codLocalite" (selectionChange)="onChange($event.value)">
+      <mat-option *ngFor="let Localite of Localites" [value]="Localite.codLocalite">{{Localite.libLocalite}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <mat-form-field class="inputs">
+    <mat-label>Password</mat-label>
+    <input  matInput required name="Password" placeholder="Password" [(ngModel)]="data.tspPassword" [type]="hide ? 'password' : 'text'">
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit" [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+    <button class="btn btn-default" type="button" (click) = "cancel()">Cancel</button>
+  </div>
+</form>

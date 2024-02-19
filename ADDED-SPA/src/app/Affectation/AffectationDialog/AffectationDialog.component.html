@@ -1,0 +1,25 @@
+<mat-horizontal-stepper linear>
+  <mat-step label= "Set Releveur" [completed] = "Releveur.iscompleted">
+    <app-releveurlist #Releveur (saveEmitter)="SaveReleveur($event)" [DefaultValue] = "data.Releveur"></app-releveurlist>
+    <div><button mat-button (click) = "cancel()">Exit</button>
+      <button mat-button  (mousedown)="Releveur.send()" matStepperNext>Next</button></div>
+  </mat-step>
+
+  <mat-step label= "Set Portable" [completed] = "Portable.iscompleted">
+    <app-portablelist #Portable (saveEmitter)="SavePortable($event)" [DefaultValue] = "data.Portable"></app-portablelist>
+    <div>
+      <button mat-button (click) = "cancel()">Exit</button>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (mousedown)="Portable.send()"  matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step label= "Done">
+    <p>You are now done.</p>
+    <div>
+      <button mat-button (click) = "cancel()">Exit</button>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button  [mat-dialog-close]="data" >Submit</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+  <a class="navbar-brand" [routerLink] = "['/home']" routerLinkActive ="active">ADDED</a>
+  <ul class="navbar-nav mr-auto" *ngIf = "Logedin()">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink] = "['/Planning']">Gérer Planning</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink] = "['/Releve']">Initialisation Releve</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" aria-disabled="true" [routerLink] = "['/Analyse']">Analyser Relève</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  aria-disabled="true" [routerLink] = "['/Releveur']">Gérer Releveur</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" aria-disabled="true" [routerLink] = "['/Affectation']">Gérer Affectation</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" aria-disabled="true" [routerLink] = "['/Portable']">Gérer Portable</a>
+    </li>
+  </ul>
+  <div class="dropdown" *ngIf="Logedin()" dropdown>
+    <a class="dropdown-toggle text-light"dropdownToggle>
+      Welcome {{ authservice.decodedtoken?.unique_name}}</a>
+    <div class="dropdown-menu" mt-3 *dropdownMenu>
+      <a class="dropdown-item" href="#" (click) = "Logout()"><i class="fas fa-sign-out-alt"> Logout</i></a>
+    </div>
+  </div>
+  <form #LoginForm="ngForm" class="form-inline my-2 my-lg-0 " (ngSubmit)="Login()" *ngIf="!Logedin()"  style="margin:auto;">
+    <input class="form-control mr-sm-2" type="text" placeholder="Mail/Telephone" name="MailTel" required
+      [(ngModel)]="model.MailTel">
+    <input class="form-control mr-sm-2" type="password" placeholder="Password" name="Password" required
+      [(ngModel)]="model.Password">
+    <button [disabled]="!LoginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+  </form>
+</nav>
